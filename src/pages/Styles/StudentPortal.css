@@ -1,0 +1,12 @@
+.student-portal-container {
+  text-align: center;
+  padding: 2rem;
+}
+.student-portal-container h2{
+    font-size: 50px;   
+}
+
+.student-portal-container p {
+  font-size: 20px;
+  margin-bottom: 1.5rem;
+}
