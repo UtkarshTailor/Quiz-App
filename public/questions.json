@@ -1,25 +1,35 @@
 {
-  "password": "abc123",
-  "time": 5,
   "questions": [
     {
-      "content": "What is 2 + 2?",
-      "type": "One Word",
-      "marks": 2,
-      "correctAnswer": "4"
+      "id": 1,
+      "content": "<p>upper case of alphabet u</p>",
+      "type": "one-word",
+      "answer": "U",
+      "options": [],
+      "marks": 5
     },
     {
-      "content": "React is a JS framework?",
-      "type": "True/False",
-      "marks": 1,
-      "correctAnswer": "False"
+      "id": 2,
+      "content": "<p>Formula for congruency: a congruent to b mod c ?</p>",
+      "type": "true-false",
+      "answer": "True",
+      "options": [],
+      "marks": 5
     },
     {
-      "content": "Select the color of the sky.",
-      "type": "MCQ",
-      "options": ["Red", "Blue", "Green", "Yellow"],
-      "marks": 2,
-      "correctAnswer": "Blue"
+      "id": 3,
+      "content": "<p>6*3</p>",
+      "type": "mcq",
+      "answer": "18",
+      "options": [
+        "2",
+        "3",
+        "18",
+        "20"
+      ],
+      "marks": 5
     }
-  ]
+  ],
+  "password": "NJOTYZ4N",
+  "timeLimit": 2
 }

@@ -11,23 +11,22 @@ const StudentPortal = () => {
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState({ obtained: 0, total: 0 });
-  const [timeLeft, setTimeLeft] = useState(0); // in seconds
+  const [timeLeft, setTimeLeft] = useState(0); 
 
-  // Fetch questions and password from JSON
   useEffect(() => {
     fetch('/questions.json')
       .then(res => res.json())
       .then(data => {
         setQuestions(data.questions || []);
         setPaperPassword(data.password || '');
-        setTimeLeft((data.time || 10) * 60); // default 10 mins
+        setTimeLeft((data.timeLimit || 5) * 60); 
       })
       .catch(err => {
         console.error('Error loading question paper:', err);
       });
   }, []);
 
-  // Countdown timer and auto-submit
+  
   useEffect(() => {
     if (isAuthenticated && !submitted) {
       const timer = setInterval(() => {
@@ -68,7 +67,7 @@ const StudentPortal = () => {
 
     questions.forEach((q, idx) => {
       const userAnswer = answers[idx]?.toString().trim().toLowerCase();
-      const correctAnswer = q.correctAnswer?.toString().trim().toLowerCase();
+      const correctAnswer = q.answer?.toString().trim().toLowerCase();
       total += q.marks || 1;
       if (userAnswer === correctAnswer) {
         obtained += q.marks || 1;
@@ -101,9 +100,7 @@ const StudentPortal = () => {
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs
-      .toString()
-      .padStart(2, '0')}`;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
   return (
@@ -145,7 +142,7 @@ const StudentPortal = () => {
                 <p><strong>Type:</strong> {q.type}</p>
                 <p><strong>Marks:</strong> {q.marks}</p>
 
-                {q.type === 'MCQ' && (
+                {q.type.toLowerCase() === 'mcq' && (
                   <div className="mcq-options">
                     {q.options?.map((opt, i) => (
                       <label key={i}>
@@ -162,7 +159,7 @@ const StudentPortal = () => {
                   </div>
                 )}
 
-                {q.type === 'True/False' && (
+                {q.type.toLowerCase() === 'true-false' && (
                   <select
                     value={answers[idx] || ''}
                     onChange={(e) => handleChange(idx, e.target.value)}
@@ -173,7 +170,7 @@ const StudentPortal = () => {
                   </select>
                 )}
 
-                {q.type === 'One Word' && (
+                {q.type.toLowerCase() === 'one-word' && (
                   <input
                     type="text"
                     placeholder="Enter your answer"
