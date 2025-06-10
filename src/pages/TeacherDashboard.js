@@ -43,12 +43,19 @@ const TeacherDashboard = () => {
   };
 
   const handleDownloadJSON = () => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(questions, null, 2));
-    const dlAnchorElem = document.createElement('a');
-    dlAnchorElem.setAttribute("href", dataStr);
-    dlAnchorElem.setAttribute("download", "questions.json");
-    dlAnchorElem.click();
+  const paperData = {
+    questions: questions,
+    password: password,
+    timeLimit: parseInt(timeLimit) || 0
   };
+
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(paperData, null, 2));
+  const dlAnchorElem = document.createElement('a');
+  dlAnchorElem.setAttribute("href", dataStr);
+  dlAnchorElem.setAttribute("download", "questions.json");
+  dlAnchorElem.click();
+};
+
 
   return (
     <div className='teacher-dashboard-container'>

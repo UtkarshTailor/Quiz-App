@@ -1,12 +1,151 @@
+/* Container Styles */
 .student-portal-container {
-  text-align: center;
-  padding: 2rem;
-}
-.student-portal-container h2{
-    font-size: 50px;   
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem 1rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
 }
 
-.student-portal-container p {
-  font-size: 20px;
-  margin-bottom: 1.5rem;
+.student-portal-container h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Form Styles */
+.student-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: auto;
+}
+
+.student-form input {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.student-form button {
+  padding: 0.75rem;
+  background-color: #2c3e50;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.student-form button:hover {
+  background-color: #1a252f;
+}
+
+/* Questions Section */
+.questions-section {
+  margin-top: 2rem;
+}
+
+.exam-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.exam-header p {
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.exam-header button {
+  background-color: #d35400;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.exam-header button:hover {
+  background-color: #a04000;
+}
+
+/* Questions List */
+.question-item {
+  background-color: #f7f7f7;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.question-item input[type='text'],
+.question-item select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* MCQ options */
+.mcq-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.mcq-options label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Result Section */
+.result-section {
+  background-color: #e8f6f3;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+}
+
+.result-section h3 {
+  font-size: 2rem;
+  color: #27ae60;
+  margin-bottom: 1rem;
+}
+
+.result-section p {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .student-portal-container h2 {
+    font-size: 1.8rem;
+  }
+
+  .student-form,
+  .result-section {
+    padding: 1rem;
+  }
+
+  .exam-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
 }

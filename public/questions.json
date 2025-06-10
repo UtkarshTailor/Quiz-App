@@ -1,0 +1,25 @@
+{
+  "password": "abc123",
+  "time": 5,
+  "questions": [
+    {
+      "content": "What is 2 + 2?",
+      "type": "One Word",
+      "marks": 2,
+      "correctAnswer": "4"
+    },
+    {
+      "content": "React is a JS framework?",
+      "type": "True/False",
+      "marks": 1,
+      "correctAnswer": "False"
+    },
+    {
+      "content": "Select the color of the sky.",
+      "type": "MCQ",
+      "options": ["Red", "Blue", "Green", "Yellow"],
+      "marks": 2,
+      "correctAnswer": "Blue"
+    }
+  ]
+}
