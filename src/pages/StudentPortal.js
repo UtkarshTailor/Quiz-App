@@ -11,28 +11,30 @@ const StudentPortal = () => {
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState({ obtained: 0, total: 0 });
-  const [timeLeft, setTimeLeft] = useState(0); 
+  const [timeLeft, setTimeLeft] = useState(0);
 
+  // Fetch question paper
   useEffect(() => {
     fetch('/questions.json')
       .then(res => res.json())
       .then(data => {
         setQuestions(data.questions || []);
         setPaperPassword(data.password || '');
-        setTimeLeft((data.timeLimit || 5) * 60); 
+        setTimeLeft((data.timeLimit || 5) * 60); // Default 5 minutes
       })
       .catch(err => {
         console.error('Error loading question paper:', err);
       });
   }, []);
 
-  
+  // Timer logic with auto-submit and confirmation alert
   useEffect(() => {
     if (isAuthenticated && !submitted) {
       const timer = setInterval(() => {
         setTimeLeft(prev => {
           if (prev <= 1) {
             clearInterval(timer);
+            alert("⏰ Time is up! Your answers are being submitted automatically.");
             submitAnswers();
             return 0;
           }
@@ -42,7 +44,7 @@ const StudentPortal = () => {
 
       return () => clearInterval(timer);
     }
-  }, [isAuthenticated, submitted, questions, answers, studentName, rollNumber]);
+  }, [isAuthenticated, submitted]);
 
   const handleStart = () => {
     if (!studentName || !rollNumber || !inputPassword) {
@@ -58,7 +60,9 @@ const StudentPortal = () => {
   };
 
   const handleChange = (index, value) => {
-    setAnswers(prev => ({ ...prev, [index]: value }));
+    if (!submitted) {
+      setAnswers(prev => ({ ...prev, [index]: value }));
+    }
   };
 
   const submitAnswers = () => {
@@ -133,7 +137,12 @@ const StudentPortal = () => {
         <div className="questions-section">
           <div className="exam-header">
             <p><strong>Time Left:</strong> {formatTime(timeLeft)}</p>
-            <button onClick={submitAnswers}>⏱️ Submit</button>
+            <button onClick={() => {
+              const confirmSubmit = window.confirm("Are you sure you want to submit?");
+              if (confirmSubmit) submitAnswers();
+            }}>
+              ⏱️ Submit
+            </button>
           </div>
           <ol>
             {questions.map((q, idx) => (
@@ -152,6 +161,7 @@ const StudentPortal = () => {
                           value={opt}
                           checked={answers[idx] === opt}
                           onChange={() => handleChange(idx, opt)}
+                          disabled={submitted}
                         />
                         {opt}
                       </label>
@@ -163,6 +173,7 @@ const StudentPortal = () => {
                   <select
                     value={answers[idx] || ''}
                     onChange={(e) => handleChange(idx, e.target.value)}
+                    disabled={submitted}
                   >
                     <option value="">-- Select --</option>
                     <option value="True">True</option>
@@ -176,6 +187,7 @@ const StudentPortal = () => {
                     placeholder="Enter your answer"
                     value={answers[idx] || ''}
                     onChange={(e) => handleChange(idx, e.target.value)}
+                    disabled={submitted}
                   />
                 )}
               </li>
