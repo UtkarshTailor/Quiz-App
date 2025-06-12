@@ -2,22 +2,14 @@
   "questions": [
     {
       "id": 1,
-      "content": "<p>upper case of alphabet u</p>",
+      "content": "<p>What is the capital of France?</p>",
       "type": "one-word",
-      "answer": "U",
+      "answer": "Paris",
       "options": [],
-      "marks": 5
+      "marks": 2
     },
     {
       "id": 2,
-      "content": "<p>Formula for congruency: a congruent to b mod c ?</p>",
-      "type": "true-false",
-      "answer": "True",
-      "options": [],
-      "marks": 5
-    },
-    {
-      "id": 3,
       "content": "<p>6*3</p>",
       "type": "mcq",
       "answer": "18",
@@ -28,8 +20,16 @@
         "20"
       ],
       "marks": 5
+    },
+    {
+      "id": 3,
+      "content": "<p>Formula for congruency: a congruent to b mod c ?</p>",
+      "type": "true-false",
+      "answer": "True",
+      "options": [],
+      "marks": 5
     }
   ],
-  "password": "NJOTYZ4N",
-  "timeLimit": 2
+  "password": "QP8Z8WN6",
+  "timeLimit": 0
 }

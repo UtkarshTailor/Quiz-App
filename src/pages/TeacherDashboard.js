@@ -1,6 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import './Styles/TeacherDashboard.css';
+
+const SAMPLE_QUESTIONS = [
+  {
+    id: 1,
+    content: '<p>What is the capital of France?</p>',
+    type: 'one-word',
+    answer: 'Paris',
+    options: [],
+    marks: 2,
+  },
+  {
+    "id": 3,
+      "content": "<p>6*3</p>",
+      "type": "mcq",
+      "answer": "18",
+      "options": [
+        "2",
+        "3",
+        "18",
+        "20"
+      ],
+      "marks": 5
+  },
+  {
+      "id": 2,
+      "content": "<p>Formula for congruency: a congruent to b mod c ?</p>",
+      "type": "true-false",
+      "answer": "True",
+      "options": [],
+      "marks": 5
+    },
+];
 
 const TeacherDashboard = () => {
   const [questions, setQuestions] = useState([]);
@@ -11,6 +43,27 @@ const TeacherDashboard = () => {
   const [options, setOptions] = useState(['', '', '', '']);
   const [timeLimit, setTimeLimit] = useState('');
   const [password, setPassword] = useState('');
+  const [sampleQuestions, setSampleQuestions] = useState(SAMPLE_QUESTIONS);
+
+  useEffect(() => {
+    fetch('/questions.json')
+      .then(res => res.json())
+      .then(data => {
+        if (data.questions) setQuestions(data.questions);
+        if (data.password) setPassword(data.password);
+        if (data.timeLimit) setTimeLimit(data.timeLimit);
+      })
+      .catch(() => {
+      });
+  }, []);
+
+  const handleSelectSample = (sample) => {
+    setCurrentQuestion(sample.content);
+    setQuestionType(sample.type);
+    setCurrentAnswer(sample.answer);
+    setCurrentMarks(sample.marks);
+    setOptions(sample.options.length ? sample.options : ['', '', '', '']);
+  };
 
   const handleOptionChange = (index, value) => {
     const updated = [...options];
@@ -29,7 +82,6 @@ const TeacherDashboard = () => {
     };
     setQuestions([...questions, newQuestion]);
 
-    // Reset form
     setCurrentQuestion('');
     setCurrentAnswer('');
     setCurrentMarks(0);
@@ -43,23 +95,37 @@ const TeacherDashboard = () => {
   };
 
   const handleDownloadJSON = () => {
-  const paperData = {
-    questions: questions,
-    password: password,
-    timeLimit: parseInt(timeLimit) || 0
+    const paperData = {
+      questions: questions,
+      password: password,
+      timeLimit: parseInt(timeLimit) || 0,
+    };
+
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(paperData, null, 2));
+    const dlAnchorElem = document.createElement('a');
+    dlAnchorElem.setAttribute("href", dataStr);
+    dlAnchorElem.setAttribute("download", "questions.json");
+    dlAnchorElem.click();
   };
-
-  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(paperData, null, 2));
-  const dlAnchorElem = document.createElement('a');
-  dlAnchorElem.setAttribute("href", dataStr);
-  dlAnchorElem.setAttribute("download", "questions.json");
-  dlAnchorElem.click();
-};
-
 
   return (
     <div className='teacher-dashboard-container'>
       <h2>👩‍🏫 Teacher Dashboard</h2>
+
+      <h3>Sample Questions (Click to Use)</h3>
+      <ul className="sample-questions-list">
+        {sampleQuestions.map((q) => (
+          <li key={q.id} className="sample-question-item">
+            <div dangerouslySetInnerHTML={{ __html: q.content }} />
+            <p><strong>Type:</strong> {q.type}</p>
+            <p><strong>Answer:</strong> {q.answer}</p>
+            <p><strong>Marks:</strong> {q.marks}</p>
+            <button onClick={() => handleSelectSample(q)}>Use This Question</button>
+          </li>
+        ))}
+      </ul>
+
+      <hr />
 
       <h3>Create New Question</h3>
 
@@ -77,7 +143,7 @@ const TeacherDashboard = () => {
           height: 200,
           menubar: false,
           plugins: 'lists link image code',
-          toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent',
+          toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | image',
         }}
         onEditorChange={(newText) => setCurrentQuestion(newText)}
       />
@@ -128,7 +194,7 @@ const TeacherDashboard = () => {
           <li key={q.id}>
             <div dangerouslySetInnerHTML={{ __html: q.content }} />
             <p><strong>Type:</strong> {q.type}</p>
-            {q.options.length > 0 && (
+            {q.options && q.options.length > 0 && (
               <ul>
                 {q.options.map((opt, i) => <li key={i}>{opt}</li>)}
               </ul>
