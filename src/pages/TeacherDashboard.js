@@ -137,7 +137,7 @@ const TeacherDashboard = () => {
       </select>
 
       <Editor
-        apiKey="z2nqqrz8m8zat8n11cp4i2ttdlaq6xemrrsel1fr9eupi4yz"
+        apiKey="" // Note: Add you API key here
         value={currentQuestion}
         init={{
           height: 200,
