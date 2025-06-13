@@ -1,4 +1,4 @@
-# 🎓 Digital Question Paper System
+# 📄 Digital Question Paper System
 
 A responsive single-page application built using React for conducting digital examinations. It supports two primary user flows:
 - 👨‍🏫 **Teacher Dashboard** – for creating question papers with various question types.
