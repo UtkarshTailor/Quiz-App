@@ -1,8 +1,8 @@
 # 🎓 Digital Question Paper System
 
 A responsive single-page application built using React for conducting digital examinations. It supports two primary user flows:
-- 👩‍🏫 **Teacher Dashboard** – for creating question papers with various question types.
-- 🧑‍🎓 **Student Portal** – for attempting the exams interactively.
+- 👨‍🏫 **Teacher Dashboard** – for creating question papers with various question types.
+- 👨‍🎓 **Student Portal** – for attempting the exams interactively.
 
 ---
 
@@ -24,7 +24,7 @@ Follow these steps to set up and run the project locally.
 
 ```bash
 git clone https://github.com/UtkarshTailor/Quiz-App.git
-cd QUIZ-APP
+cd Quiz-App
 ```
 
 ### 📦 Install Dependencies
@@ -46,7 +46,7 @@ The app will launch in your browser at:
 
 ---
 
-## 👩‍🏫 Accessing Teacher's Dashboard
+## 👨‍🏫 Accessing Teacher's Dashboard
 
 1. Visit: `http://localhost:3000/teacher`
 2. Fill out the fields to add questions:
@@ -57,7 +57,7 @@ The app will launch in your browser at:
 
 ---
 
-## 🧑‍🎓 Accessing Student Portal
+## 👨‍🎓 Accessing Student Portal
 
 1. Visit: `http://localhost:3000/student`
 2. Enter the password (shared by the teacher).
